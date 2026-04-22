@@ -59,6 +59,16 @@
     /* Motion */
     --transition-smooth: cubic-bezier(0.32, 0.72, 0, 1);
     --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Sidebar tokens (admin) */
+    --sidebar-background: 40 16% 5%;
+    --sidebar-foreground: 42 30% 88%;
+    --sidebar-primary: 42 78% 60%;
+    --sidebar-primary-foreground: 40 14% 6%;
+    --sidebar-accent: 38 12% 12%;
+    --sidebar-accent-foreground: 42 78% 60%;
+    --sidebar-border: 40 10% 14%;
+    --sidebar-ring: 42 78% 60%;
   }
 }
 
