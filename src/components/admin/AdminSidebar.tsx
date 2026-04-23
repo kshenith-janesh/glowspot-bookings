@@ -1,5 +1,6 @@
-import { LayoutDashboard, ListOrdered, Calendar, Users, Scissors, BarChart3, Settings, Sparkles } from "lucide-react";
+import { LayoutDashboard, ListOrdered, Calendar, Users, Scissors, BarChart3, Settings, Sparkles, User, Store } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import {
   Sidebar,
   SidebarContent,
@@ -15,7 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 
-const items = [
+const baseItems = [
   { title: "Dashboard", url: "/admin", icon: LayoutDashboard, end: true },
   { title: "Queue", url: "/admin/queue", icon: ListOrdered },
   { title: "Bookings", url: "/admin/bookings", icon: Calendar },
@@ -23,12 +24,15 @@ const items = [
   { title: "Services", url: "/admin/services", icon: Scissors },
   { title: "Analytics", url: "/admin/analytics", icon: BarChart3 },
   { title: "Settings", url: "/admin/settings", icon: Settings },
+  { title: "Profile", url: "/admin/profile", icon: User },
 ];
 
 export function AdminSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const location = useLocation();
+  const { isAdmin, profile } = useAuth();
+  const items = isAdmin ? [...baseItems, { title: "Shops", url: "/admin/shops", icon: Store }] : baseItems;
 
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
@@ -75,10 +79,10 @@ export function AdminSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="p-3">
-        {!collapsed && (
+        {!collapsed && profile && (
           <div className="rounded-xl border border-sidebar-border bg-sidebar-accent/40 p-3">
-            <p className="text-xs font-medium">Owner</p>
-            <p className="text-[11px] text-muted-foreground truncate">owner@midnight-edge.com</p>
+            <p className="text-xs font-medium truncate">{profile.name || "Account"}</p>
+            <p className="text-[11px] text-muted-foreground truncate">{profile.email}</p>
           </div>
         )}
       </SidebarFooter>
