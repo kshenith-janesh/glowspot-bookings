@@ -4,9 +4,12 @@ import { AdminSidebar } from "./AdminSidebar";
 import { Bell, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 export const AdminShell = ({ children, title, subtitle, actions }: { children: ReactNode; title: string; subtitle?: string; actions?: ReactNode }) => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
+  const handleLogout = async () => { await signOut(); navigate("/admin/login"); };
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-hero">
@@ -22,7 +25,7 @@ export const AdminShell = ({ children, title, subtitle, actions }: { children: R
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Bell className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full" onClick={() => navigate("/admin/login")}>
+              <Button variant="ghost" size="icon" className="rounded-full" onClick={handleLogout}>
                 <LogOut className="h-4 w-4" />
               </Button>
             </div>
